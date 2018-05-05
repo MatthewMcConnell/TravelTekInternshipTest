@@ -1,0 +1,12 @@
+The number of people with green eyes
+The top 10 most common surnames with their totals
+The details of the person who lives closest to the Eiffel Tower
+The average age of everyone with blue eyes
+One other interesting statistic of your choosing
+What we're looking for is...
+
+A straightforward approach. Don't spend hours and over-engineer it!
+Clear output when your code is run
+Creativity in your own choice of statistic
+Understandable code
+Code that is re-usable against any other JSON file in the same format
