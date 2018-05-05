@@ -1,7 +1,8 @@
 /**jsonPeopleStats library/script - a small library/script allowing you to run any statistics on
  *                                  an array of JSON objects. (In this example I run stats on people)
  * @author = Matthew McConnell
- * last modified: 04/05/2018
+ * 
+ * last modified: 05/05/2018
  */
 
 
@@ -234,6 +235,8 @@ function findPersonClosestToEiffelTower (element, index, array, results)
     const eiffelLat = 48.8584;
     const eiffelLong = 2.2945;
 
+    // If we just started then make them the person closest to the eiffel tower
+    // Otherwise compare to the current closest person and replace if they are closes
     if (index == 0)
     {
         results["Person Closest To Eiffel Tower"] = [element, calculateCoordinateDistanceWithHaversine (element.latitude,
@@ -250,6 +253,7 @@ function findPersonClosestToEiffelTower (element, index, array, results)
             results["Person Closest To Eiffel Tower"] = [element, personsDistanceFromEiffelTower];
         }
         
+        // If we are at the end of the array then show the closest persons details
         if (index == array.length - 1)
         {
             console.log ("Details of the person closest to the Eiffel Tower:")
@@ -298,6 +302,7 @@ function calculateCoordinateDistanceWithHaversine (lat1, long1, lat2, long2)
 
     return 2 * EARTHRADIUS * Math.asin (arcSinInput);
 }
+
 
 /**Here is another small helper function to convert degrees into radians for the haversine function */
 
@@ -351,7 +356,6 @@ function averageAgeOfPeopleWithBlueEyes (element, index, array, results)
 function findCompanyWithLargestEyeColourDiscrimination (element, index, array, results)
 {
     // Accumulates all values needed to get an average of pay for each eye colour in each company
-
     if (index == 0)
     {
         results["Eye Discrimination"] = {};
@@ -374,7 +378,7 @@ function findCompanyWithLargestEyeColourDiscrimination (element, index, array, r
 
 
     // To finish off we find the biggest and smallest average wage for eye colours in each company
-    // and then find the company with the biggest difference between those 2 values.
+    // and then find the company with the biggest difference between their 2 values.
     // THEN WE EXPOSE THEM!!!
 
     if (index == array.length - 1)
@@ -397,6 +401,7 @@ function findCompanyWithLargestEyeColourDiscrimination (element, index, array, r
                     minEyeAveragePay = maxEyeAveragePay = [eyeColor, results["Eye Discrimination"][company][eyeColor][2]];
                 }
 
+                // Checking for if the eye color average for the company is its smallest or biggest yet.
                 if (results["Eye Discrimination"][company][eyeColor][2] < minEyeAveragePay[1])
                 {
                     minEyeAveragePay = [eyeColor, results["Eye Discrimination"][company][eyeColor][2]];
@@ -410,12 +415,14 @@ function findCompanyWithLargestEyeColourDiscrimination (element, index, array, r
 
             var payDifference = maxEyeAveragePay[1] - minEyeAveragePay[1];
 
+            // Checking to see if this recently computed company pay difference is the biggest we've had so far
             if (maxPayDifference == undefined || payDifference > maxPayDifference[3])
             {
                 maxPayDifference = [company, maxEyeAveragePay[0], minEyeAveragePay[0], payDifference];
             }
         }
 
+        // Showing the details of the worst company discrimination
         console.log ("The company with the biggest discrimination on eye colour is "
                      + maxPayDifference[0]
                      + " with it giving "
@@ -444,7 +451,6 @@ function convertPayToNumber (string)
 
 
 
-
 // Here you can call the runStatistics method with a url and then an unlimited amount of stat functions
 // (Remember the stat functions can be anything as long as they conform to the standard)
 runStatistics ("fakepeople.json",
@@ -459,7 +465,7 @@ runStatistics ("fakepeople.json",
 
 
 /**Ending Points: - I probably spent longer on this than I should have but it was fun to dive in
- *                  and write some code so I got a bit carried away
+ *                  and write some code so I got a bit carried away :D
  *                - There are definitely some minor inefficiencies here and there and possible code
  *                  refactoring or decisions to be made as well (store the values or just present them?)
  *                - I tried to make it as modular as possible so it was very reusable.
